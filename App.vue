@@ -1,27 +1,14 @@
 <template>
   <button type="button" @click="flag = !flag">Toggle</button>
   
-  {/*<transition name="fade" mode="out-in">
-    <h2 v-if="flag" key="main">Yo world</h2>
-    <h2 v-else key="secondary">Another Yo</h2>
-  </transition>*/}
-
-  {/*<transition name="zoom" type="animation" appear>
-    <h2 v-if="flag">Yo dude</h2>
-  </transition>*/}
-
-  <transition 
-    @before-enter="beforeEnter" 
-    @enter="enter" 
-    @after-enter="afterEnter"
-    @before-leave="beforeLeave"
-    @leave="leave"
-    @after-leave="afterLeave"
-    :css="true"
-    name="fade"
-  >
-    <h2 v-if="flag">Yo again</h2>
-  </transition
+  <button @click="addItem">Add</button>
+  <ul>
+    <transition-group name="fade">
+      <li v-for="(number, index) in mumbers" :key="number"
+        @click="removeItem(index)"> {{ number }} 
+      </li>
+    </transition-group>
+  </ul>
 </template>
 
 <script>
@@ -30,9 +17,18 @@ export default {
   data() {
     return {
       flag: true,
+      numbers: [1, 2, 3, 4, 5],
     };
   },
   methods: {
+    addItem() {
+      const num = Math.floor(Math.random() * 100 + 1);
+      const index = Math.floor(Math.random() * this.numbers.length);
+      this.numbers.splice(0, index, num);
+    },
+    removeItem() {
+      this.numbers.splice(index, 1);
+    }
     beforeEnter(el) {
 
     },
@@ -66,6 +62,11 @@ export default {
 </script>
 
 <style>
+
+li {
+  font-size: 22px;
+  cursor: pointer;
+}
 
 h2 {
   width: 400px;
