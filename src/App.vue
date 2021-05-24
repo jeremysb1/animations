@@ -17,6 +17,7 @@
     @before-leave="beforeLeave"
     @leave="leave"
     @after-leave="afterLeave"
+    :css="false"
   >
     <h2 v-if="flag">Yo again</h2>
   </transition
@@ -35,7 +36,13 @@ export default {
 
     },
     enter(el, done) {
-      done();
+      const animation = el.animate([{ transform: "scaled3d(0,0,0)" }, {}, {
+        duration: 1000,
+      }]);
+
+      animation.onfinish = () => {
+        done();
+      };
     },
     afterEnter(el) {
 
@@ -44,8 +51,12 @@ export default {
 
     },
     leave(el, done) {
-      done();
-    },
+      const animation = el.animate([ {}, { transform: "scaled3d(0,0,0)" }, {
+        duration: 1000,
+      }]);
+      animation.onfinish = () => {
+        done();
+      },
     afterLeave(el) {
 
     },
