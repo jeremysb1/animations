@@ -6,9 +6,20 @@
     <h2 v-else key="secondary">Another Yo</h2>
   </transition>*/}
 
-  <transition name="zoom" type="animation" appear>
+  {/*<transition name="zoom" type="animation" appear>
     <h2 v-if="flag">Yo dude</h2>
-  </transition>
+  </transition>*/}
+
+  <transition 
+    @before-enter="beforeEnter" 
+    @enter="enter" 
+    @after-enter="afterEnter"
+    @before-leave="beforeLeave"
+    @leave="leave"
+    @after-leave="afterLeave"
+  >
+    <h2 v-if="flag">Yo again</h2>
+  </transition
 </template>
 
 <script>
@@ -18,6 +29,26 @@ export default {
     return {
       flag: true,
     };
+  },
+  methods: {
+    beforeEnter(el) {
+
+    },
+    enter(el, done) {
+      done();
+    },
+    afterEnter(el) {
+
+    },
+    beforeLeave(el) {
+
+    },
+    leave(el, done) {
+      done();
+    },
+    afterLeave(el) {
+
+    },
   },
 };
 </script>
